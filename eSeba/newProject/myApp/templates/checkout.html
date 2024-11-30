@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/__checkout.css' %}" />
+{% endblock %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div class="container">
+    <p>Your shopping cart is empty.</p>
+</div>
+{% endblock %}
