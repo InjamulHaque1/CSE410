@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/__user_profile.css' %}" />
+{% endblock %}
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="containerinfo" id="userProfileView" >
+    <h2>User Profile</h2>
+    <div class="info">
+        <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
+        <p><strong>Name:</strong> {{ user_profile.fullname }} </p>
+        <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+        <p><strong>Age:</strong> {{ user_profile.age }}</p>
+        <p><strong>Address:</strong> {{ user_profile.address }}</p>
+        <p><strong>Mobile:</strong> {{ user_profile.mobile }}</p>
+    </div>
+
+    <div class="button-container">
+        <button id="editButton" class="b1">Edit profile</button>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="delete_account" class="b2">Delete Account</button>
+        </form>
+    </div>
+</div>
+<div class="containerinfo" id="userProfileEdit" style="display: none;">
+    <form id="profileForm" method="post">
+        <h2>Edit your information below:</h2>
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <div class="btn-container">
+            <button type="button" id="saveButton">Save</button>
+            <button type="button" id="cancelButton">Cancel</button>
+        </div>
+    </form>
+</div>
+
+{% if appointments %}
+    <h2>List of appointments</h2>
+{% else %}
+    <h2>No appointments found</h2>   
+{% endif %}
+
+<div class="containerapp">
+    {% for appointment in appointments %}
+    <div class="appointment">
+        <p><strong>Doctor:</strong> {{ appointment.doctor.name }}</p>
+        <p><strong>Appointment Date:</strong> {{ appointment.appointment_date }}</p>
+        <p><strong>Time:</strong> {{ appointment.doctor_time_slot.start_time }} - {{ appointment.doctor_time_slot.end_time }}</p>
+        <p><strong>Serial:</strong> {{ appointment.serial_number }}</p>
+        <p><strong>Description:</strong> {{ appointment.description }}</p>
+        <form method="post" action="{% url 'cancel_appointment' appointment.id appointment.doctor.id %}">
+            {% csrf_token %}
+            <button type="submit" class="cancel-appointment">Cancel Appointment</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+{% if bills %}
+    <h2>Your payment history</h2>
+{% else %}
+    <h2>No bills found</h2>      
+{% endif %}
+<div class="containerbill">
+    {% for bill in bills %}
+    <div class="bill">
+        <p><strong>Customer Name:</strong> {{ bill.customer.username }}</p>
+        <p><strong>Items:</strong>
+            <ul style="list-style: none;">
+                {% for bill_item in bill.billitem_set.all %}
+                    <li>{{ bill_item.accessory.p_name }} ({{ bill_item.quantity }}x{{ bill_item.accessory.p_cost }}={{bill_item.total_cost }}tk)</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Total Cost:</strong> {{ bill.total_item_cost }}tk</p>
+        <p><strong>Created At:</strong> {{ bill.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const viewMode = document.getElementById("userProfileView");
+        const editMode = document.getElementById("userProfileEdit");
+        const editButton = document.getElementById("editButton");
+        const saveButton = document.getElementById("saveButton");
+        const cancelButton = document.getElementById("cancelButton");
+        const profileForm = document.getElementById("profileForm");
+
+        // Function to toggle between view and edit modes
+        editButton.addEventListener("click", () => {
+            viewMode.style.display = "none";
+            editMode.style.display = "block";
+        });
+
+        cancelButton.addEventListener("click", () => {
+            viewMode.style.display = "block";
+            editMode.style.display = "none";
+        });
+
+        saveButton.addEventListener("click", () => {
+            const formData = new FormData(profileForm);
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "{% url 'user_profile' %}");
+
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    location.reload();
+                } else {
+                    console.error("Error updating profile");
+                }
+            };
+            xhr.send(formData);
+        });
+    });
+</script>
+
+{% endblock %}

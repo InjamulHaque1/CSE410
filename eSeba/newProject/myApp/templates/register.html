@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/__register.css' %}" />
+{% endblock %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="register-container">
+      <h2>Register</h2>
+      <form method="post" id="registration-form" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="u_name">Username</label>
+                <input type="text" name="u_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_fname">First name</label>
+                <input type="text" name="u_fname" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_lname">Last name</label>
+                <input type="text" name="u_lname" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_email">Email</label>
+                <input type="email" name="u_email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_password">Password</label>
+                <input type="password" name="u_password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_age">Age</label>
+                <input type="number" name="u_age" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_address">Address</label>
+                <input type="text" name="u_address" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="u_mobile">Mobile</label>
+                <input type="text" name="u_mobile" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <input type="radio" name="u_gender" value="Male" id="male" required>
+                <label for="male">Male</label>
+                <input type="radio" name="u_gender" value="Female" id="female" required>
+                <label for="female">Female</label>
+            </div>
+            <div class="captcha_container">
+                {{ form.captcha }}
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+  </div>
+</div>
+
+{% block extra-scripts %}
+<script>
+document.getElementById("registration-form").addEventListener("submit", function(event) {
+    // Prevent default submission to validate fields
+    event.preventDefault();
+
+    // Get form values
+    var u_name = document.querySelector('input[name="u_name"]').value.trim();
+    var u_fname = document.querySelector('input[name="u_fname"]').value.trim();
+    var u_lname = document.querySelector('input[name="u_lname"]').value.trim();
+    var u_email = document.querySelector('input[name="u_email"]').value.trim();
+    var u_password = document.querySelector('input[name="u_password"]').value.trim();
+    var u_age = document.querySelector('input[name="u_age"]').value.trim();
+    var u_address = document.querySelector('input[name="u_address"]').value.trim();
+    var u_mobile = document.querySelector('input[name="u_mobile"]').value.trim();
+    var u_gender = document.querySelector('input[name="u_gender"]:checked');
+
+    // Validate fields
+    if (u_name === "" || u_fname === "" || u_lname === "" || u_email === "" || u_password === "" || 
+        u_age === "" || u_address === "" || u_mobile === "" || !u_gender) {
+        alert("Please fill in all fields.");
+        return;  // Exit if validation fails
+    }
+
+    // Validate age
+    if (parseInt(u_age) < 1 || parseInt(u_age) > 120) {
+        alert("Age must be between 1 and 120.");
+        return;  // Exit if validation fails
+    }
+
+    // Validate mobile number
+    if (u_mobile.length !== 11 || isNaN(u_mobile)) {
+        alert("Mobile number must be exactly 11 digits.");
+        return;  // Exit if validation fails
+    }
+
+    // Log the values for debugging
+    console.log({
+        u_name,
+        u_fname,
+        u_lname,
+        u_email,
+        u_password,
+        u_age,
+        u_address,
+        u_mobile,
+        u_gender: u_gender.value
+    });
+
+    // If all validations pass, submit the form
+    this.submit();  // Submit the form
+});
+</script>
+{% endblock %}
+{% endblock %}

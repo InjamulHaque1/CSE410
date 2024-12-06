@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/__products.css' %}" />
+{% endblock %}
+
+{% block title %}Product Catalogue{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="search-container">
+        <form id="search-form" action="{% url 'product_search' %}" method="get">
+            <input type="text" id="search-input" name="q" placeholder="Search products...">
+            <button type="submit" id="search-button">Search</button>
+        </form>
+    </div>
+    
+    <div class="container" id="product-container">
+        {% if products %}
+            {% for product in products %}
+                <div class="product-card">
+                   <div class="img1"> <img src="{% static 'image/'|add:product.p_image.url %}" alt="Product Image" class="product-image"></div>
+                    <h2 class="product-title">{{ product.p_name }}</h2>
+                    <p class="product-cost"><strong>Cost:</strong> {{ product.p_cost }} tk</p>
+                    <p class="product-count"><strong>In stock:</strong> {{ product.p_count }}</p>
+                    <p class="product-description"><strong>Description</strong> {{ product.p_description }}</p>
+                    <p class="product-vendor"><strong>Vendor:</strong> {{ product.v_name }}</p>
+                    
+                    <div class="product-actions">
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" name="quantity" id="quantity" min="0" max="10">
+                            <button type="submit">Add</button>
+                        </form>
+                    </div>
+                </div>    
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="go-to-cart-button">
+        <a href="{% url 'cart' %}">Go to Cart</a>
+    </div>
+</div>
+{% endblock %}

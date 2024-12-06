@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User Manual{% endblock %}
+
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'css/__userManual.css' %}">
+{% endblock %}
+
+{% block content %}
+<br>
+<fieldset>
+    <h1>How can I sign up for an account?</h1>
+    <figure>
+        <img src="{% static 'image/sign-up.png' %}" alt="Sign-Up manual">
+    </figure>
+    <aside>If you're a new user, click the "Sign Up" button at the top-right corner to create an account.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I register my information?</h1>
+    <figure>
+        <img src="{% static 'image/register.png' %}" alt="Register manual">
+    </figure>
+    <aside>Fill in the required details such as your name, email, and password. Then click the "Register" button to proceed.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I verify my email?</h1>
+    <figure>
+        <img src="{% static 'image/verify-email.png' %}" alt="Email-verify manual">
+    </figure>
+    <aside>Check your email inbox for an OTP (One-Time Password) and use it to confirm your email address.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I enter the OTP?</h1>
+    <figure>
+        <img src="{% static 'image/otp.png' %}" alt="OTP-verify manual">
+    </figure>
+    <aside>Enter the OTP sent to your email to complete the email verification process.</aside>
+</fieldset>
+<fieldset>
+    <h1>How can I log in to my account?</h1>
+    <figure>
+        <img src="{% static 'image/Log-In.png' %}" alt="Log-In manual">
+    </figure>
+    <aside>Use your username and password to log in. Verify the reCAPTCHA and click the "Log In" button to access your account.</aside>
+</fieldset>
+<fieldset>
+    <h1>Where can I view my user profile?</h1>
+    <figure>
+        <img src="{% static 'image/my-profile.png' %}" alt="User-Profile manual">
+    </figure>
+    <aside>Go to the "My Profile" section to view your account details, update information, or manage settings.</aside>
+</fieldset>
+<fieldset>
+    <h1>How can I edit or delete my profile?</h1>
+    <figure>
+        <img src="{% static 'image/edit-profile.png' %}" alt="Edit-Profile manual">
+    </figure>
+    <aside>Click "Edit Profile" to update your information. To delete your account, click the "Delete Account" button.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I browse products?</h1>
+    <figure>
+        <img src="{% static 'image/products.png' %}" alt="Products-page manual">
+    </figure>
+    <aside>Navigate to the Products page to view a variety of items available for purchase.</aside>
+</fieldset>
+<fieldset>
+    <h1>How can I search for specific products?</h1>
+    <figure>
+        <img src="{% static 'image/search.png' %}" alt="Search-product manual">
+    </figure>
+    <aside>Use the search bar to look for products by entering relevant keywords.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I add items to my cart?</h1>
+    <figure>
+        <img src="{% static 'image/add-to-cart.png' %}" alt="Add-to-cart manual">
+    </figure>
+    <aside>Specify the desired quantity on the product page, then click the "Add to Cart" button.</aside>
+</fieldset>
+<fieldset>
+    <h1>How can I view my cart?</h1>
+    <figure>
+        <img src="{% static 'image/go-to-cart.png' %}" alt="Go-to-cart manual">
+    </figure>
+    <aside>Click the "Go to Cart" icon to review items in your shopping cart before proceeding to checkout.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I complete the checkout process?</h1>
+    <figure>
+        <img src="{% static 'image/checkout.png' %}" alt="Checkout manual">
+    </figure>
+    <aside>Go to the checkout page to review and confirm your order details.</aside>
+</fieldset>
+<fieldset>
+    <h1>Where can I find my order and payment history?</h1>
+    <figure>
+        <img src="{% static 'image/payment-list.png' %}" alt="Payment-list manual">
+    </figure>
+    <aside>Access your order history and payment details in your profile. You can cancel appointments from here as well.</aside>
+</fieldset>
+<fieldset>
+    <h1>What information is available on the Appointment page?</h1>
+    <figure>
+        <img src="{% static 'image/appointment.png' %}" alt="Appointment-page manual">
+    </figure>
+    <aside>Find details about available doctors and their schedules on the Appointment page.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I create an appointment?</h1>
+    <figure>
+        <img src="{% static 'image/create-appointment.png' %}" alt="Create-appointment manual">
+    </figure>
+    <aside>Click the "Create Appointment" button and select a schedule based on the doctor's availability.</aside>
+</fieldset>
+<fieldset>
+    <h1>How do I fill out the appointment form?</h1>
+    <figure>
+        <img src="{% static 'image/appointment-form.png' %}" alt="Appointment-form manual">
+    </figure>
+    <aside>Complete the form with necessary details and click the "Register" button to finalize the appointment.</aside>
+</fieldset>
+<fieldset>
+    <h1>Where can I view my appointment list?</h1>
+    <figure>
+        <img src="{% static 'image/appointment-list.png' %}" alt="Appointment-list manual">
+    </figure>
+    <aside>View your appointment list in your profile. You can also cancel appointments here by clicking the "Cancel Appointment" button.</aside>
+</fieldset>
+<fieldset>
+    <h1>What is the Emergency page for?</h1>
+    <figure>
+        <img src="{% static 'image/emergency.png' %}" alt="Emergency manual">
+    </figure>
+    <aside>Find blood availability across different hospitals by clicking on the Emergency option.</aside>
+</fieldset>
+{% endblock %}
