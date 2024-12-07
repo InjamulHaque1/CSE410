@@ -1,6 +1,7 @@
 # CSE410
 
-Before running install packages under "requirements.txt"
+Before running install packages under "requirements.txt" with 
+    pip install django django-recaptcha pillow
 
 How to run commands:
 
